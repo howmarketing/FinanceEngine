@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import './LoginComponent.scss';
@@ -16,7 +17,8 @@ import { AuthenticationService } from "../../utils/services/authentication/authe
 const LoginComponent: React.FC = () => {
 
   const navigate = useNavigate();
-  const genericService = new GenericService();
+  // let genericService = new GenericService();
+  new GenericService();
   const authenticationService = new AuthenticationService();
 
   const { register, handleSubmit, formState: { errors, isValid }, trigger } = useForm();
@@ -31,7 +33,8 @@ const LoginComponent: React.FC = () => {
   const onSubmit = handleSubmit((loginModel) => {
     delete loginModel.rememberMe;
     navigate('/app');
-    // genericService.postToken('/auth/signin', loginModel)
+    // TODO: Remove comment code below
+    // genericService.postToken('/auth/signIn', loginModel)
     //   .then((response: any) => {
     //     authenticationService.setUser(response.data);
     //     navigate('/app');

@@ -1,27 +1,65 @@
 {
   "compilerOptions": {
-    "baseUrl": "src",
-    "target": "es5",
+    "target": "ES5",
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ESNEXT",
     ],
     "allowJs": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
-    "noFallthroughCasesInSwitch": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "incremental": true,
+    "baseUrl": "src",
+    "paths": {
+      "components/*": [
+        "components/*"
+      ],
+      "pageComponent/*": [
+        "components/pages/*"
+      ],
+      "private/*": [
+        "components/pages/private/*"
+      ],
+      "pages/*": [
+        "pages/*"
+      ],
+      "samples/*": [
+        "samples/*"
+      ],
+      "sass/*": [
+        "sass/*"
+      ],
+      "shared/*": [
+        "shared/*"
+      ],
+      "componentsShared/*": [
+        "shared/components/*"
+      ],
+      "styles/*": [
+        "styles/*"
+      ],
+      "utils/*": [
+        "utils/*"
+      ]
+    }
   },
   "include": [
-    "src"
-  ]
+    "./next-env.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules/"
+  ],
+  "allowSyntheticDefaultImports": true,
+  "noFallthroughCasesInSwitch": true,
 }
