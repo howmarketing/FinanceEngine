@@ -1,0 +1,94 @@
+@import "src/sass/import";
+
+.header {
+  padding: 25px 40px;
+  background: $color-blue;
+  color: $color-white;
+  @include flexbox(flex, row, wrap, space-between, center, center);
+
+  .buttonMenu {
+    cursor: pointer;
+    font-size: 24px;
+    margin-right: 49px;
+  }
+
+  .logo {
+    width: auto;
+    height: 40px;
+  }
+
+  .profile {
+    @include fonte($color-white, $font-primary, 1rem, 500);
+    @include flexbox(flex, row, nowrap, center, center, center);
+    img {
+      width: 50px;
+      margin: 0 1rem;
+      @include border-radius(50%);
+    }
+  }
+}
+
+.content-wrapper {
+  padding: 27px 40px 40px;
+  position: relative;
+  .menu-wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 100vh;
+    z-index: 2;
+    @include flexbox(flex, row, nowrap, flex-start, flex-start, flex-start);
+    .menu-content {
+      padding: 40px;
+      height: 100%;
+      width: 25%;
+      max-width: 25%;
+      background: $color-blue;
+      @include flexbox(flex, column, nowrap, space-between, flex-start, center);
+      @include fonte($color-white, $font-primary, 18px, normal);
+      @include MQ-max(XL) {
+        width: 100%;
+        max-width: 100%;
+      }
+      .menu-item {
+        @include fonte($color-white, $font-primary-bold, 18px, normal);
+        @include flexbox(flex, row, nowrap, flex-start, center, center);
+        svg {
+          width: 25px;
+          margin: 1rem;
+        }
+      }
+      a {
+        @include fonte($color-white, $font-primary-bold, 18px, normal);
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.page-header {
+  @include flexbox(flex, row, nowrap, space-between, center, center);
+
+  .page-title {
+    @include fonte($color-black-medium, $font-primary, 20px, 600);
+  }
+}
+
+.app-title {
+  @include fonte($color-blue-darker, $font-con-bold, 24px, bold);
+}
+
+.container-title {
+  margin: 0;
+  @include fonte($color-blue-darker, $font-con-bold, 20px, bold);
+}
+
+.footer {
+  padding: 25px 40px;
+  background: $color-white;
+  @include fonte($color-cold-gray-darker, $font-serif, 1rem, normal);
+}

@@ -1,0 +1,59 @@
+//_________Palette Colors
+
+// White
+$color-white: #ffffff;
+$color-white-medium: #f9fbfc;
+$color-white-light: #f5f7f9;
+$color-white-lighter: #e8e8e8;
+
+// Black
+$color-black: #000000;
+$color-black-medium: #1a1d1e;
+$color-black-light: #272727;
+$color-black-transparent: rgba(26, 29, 30, 0.2);
+
+// Blue
+$color-blue: #07639d;
+$color-blue-darker: #001f45;
+$color-blue-dark: #192a3e;
+$color-blue-medium: #161e54;
+$color-blue-light: #458ab6;
+$color-blue-lighter: #c2cfe0;
+$color-blue-lightest: #d3dee7;
+
+// Gray
+$color-cold-gray-darker: #4c5862;
+$color-cold-gray-dark: #757f8b; // #192A3E99
+$color-cold-gray: #d3d8dd;
+$color-cold-gray-medium: #c7cddb;
+$color-cold-gray-light: #ebeff2;
+
+$color-gray-darkerst: #666666;
+$color-gray-darker: #707070;
+$color-gray-dark: #8e8e8e;
+$color-gray: #d3d5d4;
+$color-gray-medium: #d6d6d6; // #00000029
+$color-gray-light: #e2e2e2; // #70707033
+$color-gray-lighter: #f0f0f0;
+$color-gray-lightest: #f5f5f5; //  #70707099
+
+// Green
+$color-green: #1AD598;
+$color-green-medium: #1AD59866;
+$color-green-light: #1AD59880;
+
+// Red
+$color-red: #ea3a3d;
+$color-red-medium: #ff5151;
+
+// Yellow
+$color-yellow: #ead025;
+$color-yellow-light: #ffd71e;
+
+//_________Typography
+$font-primary: "Prudential Regular", sans-serif;
+$font-primary-light: "Prudential Light", sans-serif;
+$font-primary-bold: "Prudential Bold", sans-serif;
+$font-con-bold: "Prudential Condensed Bold", sans-serif;
+$font-serif: "Prudential Serif Regular";
+$font-serif-italic: "Prudential Serif Italic";

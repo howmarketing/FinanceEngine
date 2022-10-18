@@ -1,0 +1,62 @@
+@import "src/sass/import";
+
+.login-container {
+  width: 100%;
+  height: 100vh;
+  
+  background-size: cover;
+  @include flexbox(flex, column, nowrap, center, center, center);
+
+  .login-logo {
+    width: 300px;
+    height: auto;
+  }
+
+  .login-card {
+    width: 450px;
+    background: $color-white;
+    margin-top: 61px;
+    padding: 26px 0;
+    @include border-radius(5px);
+    @include flexbox(flex, column, nowrap, center, center, center);
+
+    .login-form {
+      @include flexbox(flex, column, nowrap, center, center, center);
+    }
+
+    .login-title {
+      margin-bottom: 18px;
+      @include fonte($color-blue-darker, $font-primary-bold, 24px, normal);
+    }
+
+    .login-input {
+      border-color: $color-blue-light;
+      padding: 13px 29px 11px;
+      margin-top: 16px;
+      @include border-radius(5px);
+      @include fonte($color-gray-darkerst, $font-serif, 16px, normal);
+    }
+
+    .login-btn {
+      width: 100%;
+      border: none;
+      padding: 8px;
+      text-align: center;
+      background: $color-blue-light;
+      position: relative;
+      margin-top: 16px;
+      @include border-radius(5px);
+      @include fonte($color-white, $font-con-bold, 18px, normal);
+    }
+
+    .login-info-text {
+      margin-top: 26px;
+      text-align: justify;
+      line-height: 19px;
+      @include fonte($color-gray-darkerst, $font-serif, 16px, normal);
+      strong {
+        @include fonte($color-blue, $font-serif, 16px, normal);
+      }
+    }
+  }
+}

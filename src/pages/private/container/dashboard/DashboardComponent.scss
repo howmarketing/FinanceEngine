@@ -1,0 +1,12 @@
+@import "src/sass/import";
+
+.header-container {
+  @include flexbox(flex, row, nowrap, flex-start, center, center);
+}
+
+.card-container {
+  margin: 1rem 0;
+  padding: 20px;
+  background: $color-white;
+  @include box-shadow(0, 6px, 12px, 0, 0, 0, 0.059);
+}
