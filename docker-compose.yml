@@ -1,0 +1,28 @@
+version: "3.2"
+
+services:
+  __service__:
+    image: __registry__/__image__:__version__
+    deploy:
+      replicas: __replicas__
+      labels:
+        com.docker.ucp.access.label: __access-label__
+        com.docker.lb.hosts: __dns__
+        com.docker.lb.network: __env__-network
+        com.docker.lb.port: __port__
+        com.docker.lb.ssl_cert: __certificado-cert__
+        com.docker.lb.ssl_key: __certificado-key__
+      placement:
+        constraints:
+          - "node.role==worker"
+    volumes:
+    - type: bind
+      source: /etc/localtime
+      target: /etc/localtime
+    environment: __env-vars__
+    networks:
+      - __env__-network
+
+networks:
+  __env__-network:
+    external: true
