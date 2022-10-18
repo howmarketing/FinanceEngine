@@ -1,0 +1,252 @@
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+
+trigger:
+  - "*"
+
+pool:
+  name: "BuildLinux2.195.0"
+
+variables:
+  - name: isPullRequest
+    value: $[eq(variables['Build.Reason'], 'PullRequest')]
+  - name: isMasterBranch
+    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/master')]
+  - name: isHotfixBranch
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/hotfix/') }}
+  - name: isDevelopBranch
+    value: $[eq(variables['Build.SourceBranch'], 'refs/heads/develop')]
+  - name: isBugfixBranch
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/bugfix/') }}
+  - name: isReleaseBranch
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/release/') }}
+  - name: isFeatureBranch
+    value: ${{ startsWith(variables['Build.SourceBranch'], 'refs/heads/feature/') }}
+
+steps:
+  - script: |
+      echo "Production !!!"
+    displayName: "Check Production"
+    condition: and(succeeded(), or(eq(variables.isMasterBranch, true), eq(variables.isHotfixBranch, true)))
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      echo "Test / Stage !!!"
+    displayName: "Check Test / Stage"
+    condition: and(succeeded(), eq(variables.isReleaseBranch, true))
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      echo "Develop !!!"
+    displayName: "Check Develop"
+    condition: and(succeeded(), or(eq(variables.isDevelopBranch, true), eq(variables.isBugfixBranch, true)))
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      export DOCKER_IMAGE="$(python -c "import sys, json; print(json.load(sys.stdin)['name'])" < $(build.sourcesdirectory)/package.json)"
+      export RELEASE_VERSION="$(python -c "import sys, json; print(json.load(sys.stdin)['version'])" < $(build.sourcesdirectory)/package.json)"
+      export RELEASE_VERSION_SUFIX="dev-$(Build.BuildId)"
+      export RELEASE_VERSION_NAME="${RELEASE_VERSION}-${RELEASE_VERSION_SUFIX}"
+      echo "##vso[task.setvariable variable=dockerImage]$DOCKER_IMAGE"
+      echo "##vso[task.setvariable variable=releaseVersion]$RELEASE_VERSION"
+      echo "##vso[task.setvariable variable=releaseVersionSufix]$RELEASE_VERSION_SUFIX"
+      echo "##vso[task.setvariable variable=releaseVersionName]$RELEASE_VERSION_NAME"
+    displayName: "Set Variables"
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      export RELEASE_VERSION_SUFIX="rc-$(Build.BuildId)"
+      export RELEASE_VERSION_NAME="$(releaseVersion)-${RELEASE_VERSION_SUFIX}"
+      echo "##vso[task.setvariable variable=releaseVersionSufix]$RELEASE_VERSION_SUFIX"
+      echo "##vso[task.setvariable variable=releaseVersionName]$RELEASE_VERSION_NAME"
+    displayName: "Set Variables - Test / Stage"
+    condition: and(succeeded(), eq(variables.isReleaseBranch, true))
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      export RELEASE_VERSION_SUFIX=""
+      export RELEASE_VERSION_NAME="$(releaseVersion)"
+      echo "##vso[task.setvariable variable=releaseVersionSufix]$RELEASE_VERSION_SUFIX"
+      echo "##vso[task.setvariable variable=releaseVersionName]$RELEASE_VERSION_NAME"
+    displayName: "Set Variables - Production"
+    condition: and(succeeded(), or(eq(variables.isMasterBranch, true), eq(variables.isHotfixBranch, true)))
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      echo "##vso[build.updatebuildnumber]$(releaseVersionName)"
+    displayName: "Set Build Name"
+    continueOnError: "false"
+    enabled: "true"
+
+  - script: |
+      echo "variables.isPullRequest =" $(isPullRequest)
+      echo "variables.isMasterBranch =" $(isMasterBranch)
+      echo "variables.isHotfixBranch =" $(isHotfixBranch)
+      echo "variables.isDevelopBranch =" $(isDevelopBranch)
+      echo "variables.isBugfixBranch =" $(isBugfixBranch)
+      echo "variables.isReleaseBranch =" $(isReleaseBranch)
+      echo "variables.isFeatureBranch =" $(isFeatureBranch)
+      echo "variables.enableCheckmarx =" $(enableCheckmarx)
+      echo "variables.enableArtfactoryPush =" $(enableArtfactoryPush)
+      echo "variables.enableDockerBuild =" $(enableDockerBuild)
+      echo "variables.enableDockerPush =" $(enableDockerPush)
+      echo "variables.enableDockerPush =" $(enableDockerPush)
+      echo "variables.dockerImage =" $(dockerImage)
+      echo "variables.releaseVersion =" $(releaseVersion)
+      echo "variables.releaseVersionSufix =" $(releaseVersionSufix)
+      echo "variables.releaseVersionName =" $(releaseVersionName)
+      echo "env.APIGEE_PRODUCTION_AUTH_USER = $(APIGEE_PRODUCTION_AUTH_USER)"
+      echo "env.APIGEE_PRODUCTION_AUTH_PASS = $(APIGEE_PRODUCTION_AUTH_PASS)"
+      echo "env.REACT_APP_API_PRODUCTION = $(REACT_APP_API_PRODUCTION)"
+      echo "env.APIGEE_STAGE_AUTH_USER = $(APIGEE_STAGE_AUTH_USER)"
+      echo "env.APIGEE_STAGE_AUTH_PASS = $(APIGEE_STAGE_AUTH_PASS)"
+      echo "env.REACT_APP_API_STAGE = $(REACT_APP_API_STAGE)"
+      echo "env.APIGEE_DEVELOPMENT_AUTH_USER = $(APIGEE_DEVELOPMENT_AUTH_USER)"
+      echo "env.APIGEE_DEVELOPMENT_AUTH_PASS = $(APIGEE_DEVELOPMENT_AUTH_PASS)"
+      echo "env.REACT_APP_API_DEVELOPMENT = $(REACT_APP_API_DEVELOPMENT)"
+    displayName: "Check Variables"
+    continueOnError: "false"
+    enabled: "true"
+
+  - task: Application security testing@2022
+    displayName: 'Checkmarx Scan'
+    inputs:
+      projectName: '$(Build.Repository.Name)'
+      enableSastScan: true
+      CheckmarxService: 'Checkmarx'
+      fullTeamName: 'CxServer\Prudential\Prudential of Brazil\Projects'
+      folderExclusion: '$(checkmarx-include-exclude-folders)'
+      fileExtension: '$(checkmarx-include-exclude-files)'
+      comment: '$(Build.Repository.Name):$(Build.BuildId)'
+      vulnerabilityThreshold: true
+      incScan: false
+      high: '0'
+      medium: '0'
+      low: '0'
+      enableDependencyScan: false
+      condition: succeeded()
+      enabled: 'true'
+      generatePDFReport: true
+
+  - task: SonarQubePrepare@4
+    displayName: "Prepare analysis on SonarQube"
+    inputs:
+      SonarQube: SonarQube
+      scannerMode: CLI
+      configMode: manual
+      cliProjectKey: "$(Build.DefinitionName)"
+      cliProjectName: "$(Build.DefinitionName)"
+      cliProjectVersion: "$(Build.BuildId)"
+      cliSources: src
+      extraProperties: |
+        sonar.javascript.lcov.reportPaths=coverage/lcov.info        
+        sonar.coverage.exclusions=**/.test.js,**/styles.js,**/routes.js,**/src/services/**,**/src/saga/**,**/src/styles/**,**/src/stories/**,**/src/mocks/**,**/src/pages/Reports/**
+        sonar.exclusions=**/src/**,**/styles.js,**/routes.js,**/src/services/**,**/src/styles/**,**/src/stories/**,**/src/mocks/**,**/src/pages/Reports/**
+        sonar.tests=src/
+        sonar.sources=src/
+
+  - task: Npm@1
+    displayName: "Npm install"
+    inputs:
+      command: "custom"
+      customCommand: "install"
+
+  - task: Npm@1
+    displayName: "Npm build"
+    inputs:
+      command: "custom"
+      customCommand: "run build:docker"
+    env:
+      APIGEE_PRODUCTION_AUTH_USER: $(APIGEE_PRODUCTION_AUTH_USER)
+      APIGEE_PRODUCTION_AUTH_PASS: $(APIGEE_PRODUCTION_AUTH_PASS)
+      REACT_APP_API_PRODUCTION: $(REACT_APP_API_PRODUCTION)
+      APIGEE_STAGE_AUTH_USER: $(APIGEE_STAGE_AUTH_USER)
+      APIGEE_STAGE_AUTH_PASS: $(APIGEE_STAGE_AUTH_PASS)
+      REACT_APP_API_STAGE: $(REACT_APP_API_STAGE)
+      APIGEE_DEVELOPMENT_AUTH_USER: $(APIGEE_DEVELOPMENT_AUTH_USER)
+      APIGEE_DEVELOPMENT_AUTH_PASS: $(APIGEE_DEVELOPMENT_AUTH_PASS)
+      REACT_APP_API_DEVELOPMENT: $(REACT_APP_API_DEVELOPMENT)
+
+  - task: Npm@1
+    displayName: "Npm test"
+    inputs:
+      command: "custom"
+      customCommand: "run test"
+
+  - task: SonarQubeAnalyze@4
+    displayName: "Run Code Analysis"
+    enabled: "true"
+
+  - task: SonarQubePublish@4
+    displayName: "publish sonar results"
+    inputs:
+      pollingTimeoutSec: "300"
+    enabled: "true"
+
+  - task: sonar-buildbreaker@8
+    displayName: "sonar validation"
+    inputs:
+      SonarQube: "SonarQube"
+    enabled: "true"
+
+  - task: Docker@0
+    displayName: "Build an image - dev/$(dockerImage) (with version)"
+    inputs:
+      containerregistrytype: "Container Registry"
+      dockerRegistryConnection: "Docker Registry"
+      dockerFile: Dockerfile
+      imageName: "dev/$(dockerImage):$(Build.BuildNumber)"
+      buildArguments: "--no-cache"
+    condition: succeeded()
+    enabled: "true"
+
+  - task: Docker@0
+    displayName: "Build an image - dev/$(dockerImage):latest"
+    inputs:
+      containerregistrytype: "Container Registry"
+      dockerRegistryConnection: "Docker Registry"
+      dockerFile: Dockerfile
+      imageName: "dev/$(dockerImage):latest"
+      buildArguments: "--no-cache"
+    condition: and(succeeded(), or(eq(variables.isMasterBranch, true), eq(variables.isHotfixBranch, true)))
+    enabled: "true"
+
+  - task: Docker@0
+    displayName: "Push an image - dev/$(dockerImage) (with version)"
+    inputs:
+      containerregistrytype: "Container Registry"
+      dockerRegistryConnection: "Docker Registry"
+      action: "Push an image"
+      imageName: "dev/$(dockerImage):$(Build.BuildNumber)"
+    condition: succeeded()
+    enabled: "true"
+
+  - task: Docker@0
+    displayName: "Push an image - dev/$(dockerImage):latest"
+    inputs:
+      containerregistrytype: "Container Registry"
+      dockerRegistryConnection: "Docker Registry"
+      action: "Push an image"
+      imageName: "dev/$(dockerImage):latest"
+    condition: and(succeeded(), or(eq(variables.isMasterBranch, true), eq(variables.isHotfixBranch, true)))
+    enabled: "true"
+
+  - task: CopyFiles@2
+    displayName: "copy docker-compose.yml"
+    inputs:
+      SourceFolder: "$(Build.SourcesDirectory)/"
+      Contents: "docker-compose.yml"
+      TargetFolder: "$(Build.ArtifactStagingDirectory)/drop"
+      CleanTargetFolder: true
+    enabled: "true"
+
+  - task: PublishBuildArtifacts@1
+    displayName: "publish to drop"
+    inputs:
+      PathtoPublish: "$(Build.ArtifactStagingDirectory)/drop"
+    enabled: "true"

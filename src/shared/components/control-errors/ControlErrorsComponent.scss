@@ -1,0 +1,5 @@
+@import 'src/sass/import';
+
+.validate-info {
+  @include fonte($color-red, $font-primary, 14px, bold);
+}
