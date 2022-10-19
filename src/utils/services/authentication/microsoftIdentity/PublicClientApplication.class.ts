@@ -24,16 +24,16 @@ export class PublicClientApplicationClass extends PublicClientApplication {
 	 */
 	public static getSingleton(defineCrypto = true): PublicClientApplicationClass {
 		// If the singleton has not been initialized, initialize it
-		if (!(PublicClientApplicationClass.singleton !== null)) {
+		if (!(this.singleton)) {
 			// Initialize the singleton
-			PublicClientApplicationClass.singleton = new PublicClientApplicationClass();
+			this.singleton = new this();
 			// Set the crypto module
 			if (defineCrypto) {
-				PublicClientApplicationClass.singleton.setCrypto();
+				this.singleton.setCrypto();
 			}
 		}
 		// Return the singleton
-		return PublicClientApplicationClass.singleton;
+		return this.singleton;
 	}
 
 	/**
@@ -132,11 +132,11 @@ export class PublicClientApplicationClass extends PublicClientApplication {
 	}
 }
 
-let publicClientApplicationClassInstance: PublicClientApplicationClass;
-export const getPublicClientApplicationClassInstance = (): PublicClientApplicationClass => {
-	publicClientApplicationClassInstance = PublicClientApplicationClass.getSingleton(false);
-	// if (!!(publicClientApplicationClassInstance.cryptoHasBeenLoaded !== true)) {
-	// 	publicClientApplicationClassInstance.loadCrypto();
-	// }
+
+export const getPublicClientApplicationClassInstance = ($loadCrypto = false): PublicClientApplicationClass => {
+	const publicClientApplicationClassInstance: PublicClientApplicationClass = PublicClientApplicationClass.getSingleton(false);
+	if ($loadCrypto && !!(publicClientApplicationClassInstance.cryptoHasBeenLoaded !== true)) {
+		publicClientApplicationClassInstance?.loadCrypto();
+	}
 	return publicClientApplicationClassInstance;
 };

@@ -1,9 +1,5 @@
 # Authentication and Authorization in Azure Active Directory
 
-[x]: # (description: This article describes how to use Azure Active Directory to authenticate and authorize users to access your web application.)
-[x]: # (Services: active-directory)
-[x]: # (This is a markdown file. You can find more information about )
-[x]: # Markdown [here](https://guides.github.com/features/mastering-markdown/).
 []: # This file is used to generate the documentation for the Auth Link project.
 []: # The documentation is generated using [MkDocs](https://www.mkdocs.org/).
 []: # The documentation is hosted on [GitHub Pages](https://pages.github.com/).
@@ -50,16 +46,16 @@ Follow bellow the infos about the project config data:
 
 [SomosAddAuthV1](https://portal.azure.com/#blade/Microsoft_AAD_IAM/ManagedAppMenuBlade/objectId/66cf7709-1774-483d-9110-6a9e2c06baab/appId/822d5619-6881-4a69-bce5-a65c546d1bcf "SomosAddAuthV1")
 
--   [Microsoft identity platform](https://go.microsoft.com/fwlink/?linkid=2094710)
+- [Microsoft identity platform](https://go.microsoft.com/fwlink/?linkid=2094710)
 
--   [Code samples](https://go.microsoft.com/fwlink/?linkid=2094801)
+- [Code samples](https://go.microsoft.com/fwlink/?linkid=2094801)
 
--   [Help and Support](https://go.microsoft.com/fwlink/?linkid=2155340)
+- [Help and Support](https://go.microsoft.com/fwlink/?linkid=2155340)
 
--   [Authentication scenarios](https://go.microsoft.com/fwlink/?linkid=2155338)
+- [Authentication scenarios](https://go.microsoft.com/fwlink/?linkid=2155338)
 
--   [Microsoft Graph](https://developer.microsoft.com/graph/docs)
+- [Microsoft Graph](https://developer.microsoft.com/graph/docs)
 
--   [Glossary](https://go.microsoft.com/fwlink/?linkid=2155601)
+- [Glossary](https://go.microsoft.com/fwlink/?linkid=2155601)
 
--   [Authentication libraries](https://go.microsoft.com/fwlink/?linkid=2155339)
+- [Authentication libraries](https://go.microsoft.com/fwlink/?linkid=2155339)

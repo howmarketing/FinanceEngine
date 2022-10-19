@@ -1,0 +1,133 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component render 1`] = `
+Array [
+  <nav
+    className="navbar navbar-expand navbar-dark bg-primary"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+    >
+      Microsoft Identity Platform
+    </a>
+    <div
+      className="ml-auto dropstart"
+    >
+      <button
+        aria-expanded={false}
+        className="dropdown-toggle btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Sign In
+      </button>
+    </div>
+  </nav>,
+  <h5>
+    <div
+      className="d-flex justify-content-center"
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "center",
+        }
+      }
+    >
+      Welcome to the Microsoft Authentication Library For Javascript - React Quickstart
+    </div>
+  </h5>,
+  <br />,
+  <br />,
+]
+`;
+
+exports[`Page layout component render 1`] = `
+Array [
+  <nav
+    className="navbar navbar-expand navbar-dark bg-primary"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+    >
+      Microsoft Identity Platform
+    </a>
+    <div
+      className="ml-auto dropstart"
+    >
+      <button
+        aria-expanded={false}
+        className="dropdown-toggle btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Sign In
+      </button>
+    </div>
+  </nav>,
+  <h5>
+    <div
+      className="d-flex justify-content-center"
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "center",
+        }
+      }
+    >
+      Welcome to the Microsoft Authentication Library For Javascript - React Quickstart
+    </div>
+  </h5>,
+  <br />,
+  <br />,
+]
+`;
+
+exports[`PageLayout component render 1`] = `
+Array [
+  <nav
+    className="navbar navbar-expand navbar-dark bg-primary"
+  >
+    <a
+      className="navbar-brand"
+      href="/"
+    >
+      Microsoft Identity Platform
+    </a>
+    <div
+      className="ml-auto"
+    >
+      <button
+        aria-expanded={false}
+        className="dropdown-toggle btn btn-secondary"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
+      >
+        Sign In
+      </button>
+    </div>
+  </nav>,
+  <h5>
+    <div
+      className="d-flex justify-content-center"
+      style={
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "justifyContent": "center",
+        }
+      }
+    >
+      Welcome to the Microsoft Authentication Library For Javascript - React Quickstart
+    </div>
+  </h5>,
+  <br />,
+  <br />,
+]
+`;
