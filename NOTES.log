@@ -1,0 +1,10 @@
+
+
+status: feature/circle-chart
+
+Next: npm install packages
+then: npm test
+npm start
+...
+
+Until, merge with branch merge/release-0-0-1-with-buttons
