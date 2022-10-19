@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Page layout center component render 1`] = `
+<div
+  className="d-flex justify-content-center"
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "justifyContent": "center",
+    }
+  }
+/>
+`;

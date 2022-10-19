@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SignInButton component render 1`] = `
+<div
+  id="profile-div"
+>
+  <p>
+    <strong>
+      Id: 
+    </strong>
+     
+    1
+  </p>
+  <p>
+    <strong>
+      First Name: 
+    </strong>
+     
+    Test
+  </p>
+  <p>
+    <strong>
+      Last Name: 
+    </strong>
+     
+    Jest. 
+  </p>
+  <p>
+    <strong>
+      Principal Name: 
+    </strong>
+     
+    Jest test
+  </p>
+  <p>
+    <strong>
+      Email: 
+    </strong>
+     
+    No e-mail name given
+  </p>
+</div>
+`;

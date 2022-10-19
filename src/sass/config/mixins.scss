@@ -19,13 +19,13 @@
   font-weight: $font-weight;
 }
 
-@mixin font-icon($content, $color, $size, $weigth) {
+@mixin font-icon($content, $color, $size, $weight) {
   background: none;
   content: $content;
   color: $color;
   font: {
     size: $size;
-    weight: $weigth;
+    weight: $weight;
   }
 }
 @mixin ub-icon-img($img, $w-size, $h-size) {

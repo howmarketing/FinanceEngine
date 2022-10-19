@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import ButtonComponent from "shared/components/button/ButtonComponent";
+import React from "react";
 
 // Styles
 import "./DashboardComponent.scss";
 
 const DashboardComponent: React.FC<any> = () => {
-  return (
-    <>
-      <div className="header-container">
-        <h1 className="container-title">Tela Inicial</h1>
-        {/* <ButtonComponent value="texto" action={() => 'text'} /> */}
-      </div>
-    </>
-  );
+	return (
+		<>
+			<div className="header-container">
+				<h1 className="container-title">Dashboard</h1>
+			</div>{" "}
+		</>
+	);
 };
 
 export default DashboardComponent;

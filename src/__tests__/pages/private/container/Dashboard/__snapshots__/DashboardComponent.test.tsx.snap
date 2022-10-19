@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dashboard component render 1`] = `
+Array [
+  <div
+    className="header-container"
+  >
+    <h1
+      className="container-title"
+    >
+      Dashboard
+    </h1>
+  </div>,
+  " ",
+]
+`;
