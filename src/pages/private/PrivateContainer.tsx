@@ -1,11 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useState } from "react";
 import { Link, Outlet } from "react-router-dom";
-// import { Link, useNavigate, Outlet } from "react-router-dom";
-
 import "./PrivateContainer.scss";
 import prudentialWhiteLogo from "assets/pru-logo_white.svg";
-// import { AuthenticationService } from "../../utils/services/authentication/authentication.service";
 
 const PrivateContainer: React.FC = () => {
 	// const navigate = useNavigate();
