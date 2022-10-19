@@ -1,7 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import ButtonComponent from "shared/components/button/ButtonComponent";
-import CircleChartComponent from "../../components/CircleChartComponent";
+import React from "react";
+import CircleChartComponent from "pages/private/components/CircleChartComponent";
 // Styles
 import "./DashboardComponent.scss";
 

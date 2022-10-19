@@ -11,11 +11,11 @@ import { BrowserRouter } from 'react-router-dom';
  * Initialize a PublicClientApplication instance which is provided to the MsalProvider component
  * We recommend initializing this outside of your root component to ensure it is not re-initialized on re-renders
  */
-it('The index strict mode load', async () => {
+it('The index strict mode load', () => {
 	global.crypto = require('crypto');
-	await act(async () => {
-		var msalInstance = await getPublicClientApplicationClassInstance();
-		const crypto = await msalInstance.loadCrypto();
+	act(() => {
+		var msalInstance = getPublicClientApplicationClassInstance();
+		// const crypto = msalInstance.loadCrypto();
 
 		expect(crypto).toBeTruthy();
 		expect(msalInstance).not.toBe(null);

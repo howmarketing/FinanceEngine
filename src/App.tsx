@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import "./App.scss";
 import LoginComponent from "./pages/login/LoginComponent";
-import DashboardComponent from "pages/private/container/Dashboard/DashboardComponent";
+import DashboardComponent from "./pages/private/container/dashboard/DashboardComponent";
 import PrivateContainer from "./pages/private/PrivateContainer";
 
 const App: React.FC = () => {

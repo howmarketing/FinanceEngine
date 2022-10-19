@@ -1,5 +1,5 @@
 import React from "react";
-import { PathRouteProps, LayoutRouteProps, IndexRouteProps, Route, Routes, RouterProps, NavigationType } from "react-router-dom";
+import { NavigationType } from "react-router-dom";
 export type IAuthRouteProps = {
 	basename?: string;
 	location?: Partial<Location> | string;
